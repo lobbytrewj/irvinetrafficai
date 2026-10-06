@@ -1,0 +1,36 @@
+{
+    "//": [
+        "IntelliSense-only configuration for the cpp_engine sources. The real",
+        "build is driven by setup.py (Pybind11Extension, cxx_std=17); this file",
+        "just tells the C/C++ extension where the same headers live so it stops",
+        "reporting 'cannot open source file Python.h'.",
+        "",
+        "The venv does not carry Python's headers -- it points back at the base",
+        "interpreter -- so the interpreter's own include directory has to be",
+        "listed explicitly. Globs cover both python.org framework installs and",
+        "Homebrew, and survive a patch-version bump."
+    ],
+    "version": 4,
+    "configurations": [
+        {
+            "name": "Mac",
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-arm64",
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "includePath": [
+                "${workspaceFolder}/cpp_engine/include",
+                "${workspaceFolder}/.venv/lib/python*/site-packages/pybind11/include",
+                "/Library/Frameworks/Python.framework/Versions/*/include/python*",
+                "/opt/homebrew/Frameworks/Python.framework/Versions/*/include/python*",
+                "/usr/local/Frameworks/Python.framework/Versions/*/include/python*"
+            ],
+            "defines": [
+                "VERSION_INFO=\"0.1.0\""
+            ]
+        }
+    ]
+}

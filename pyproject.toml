@@ -1,0 +1,15 @@
+# Build requirements only. Project metadata lives in setup.py.
+#
+# pybind11 must be declared here: PEP 517 builds run in an isolated
+# environment, so `import pybind11` inside setup.py fails without it.
+[build-system]
+requires = ["setuptools>=64", "wheel", "pybind11>=2.12"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
+# Network-dependent tests are opt-in: `pytest -m network`.
+addopts = "-m 'not network'"
+markers = [
+    "network: hits the live Overpass/OSM API (deselected by default)",
+]

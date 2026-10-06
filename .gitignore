@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Native build output
+build/
+dist/
+*.so
+*.dylib
+*.pyd
+
+# Data (tracked dirs stay via .gitkeep, contents do not)
+data/raw/*
+data/processed/*
+!data/**/.gitkeep
+
+# Models
+*.onnx
+*.pt
+*.pth

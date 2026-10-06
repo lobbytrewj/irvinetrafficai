@@ -1,0 +1,43 @@
+# irvine-traffic-ai — runtime + dev dependencies
+#
+#   pip install torch
+#   pip install -r requirements.txt
+#
+# torch must go first: several of the packages below import it inside their
+# own setup.py, which PEP 517 build isolation hides from them.
+#
+# torch-geometric-temporal is deliberately NOT a dependency. It pins narrow
+# torch/torch-sparse ranges and drags in torch-sparse, which compiles from
+# source; the STGNN in src/models/st_gnn.py is built from torch.nn plus
+# torch_geometric.nn.ChebConv instead, which needs neither.
+#
+# Verified on Python 3.12 with torch 2.13.0, torch-geometric 2.8.0,
+# osmnx 2.1.1, onnxruntime 1.28.0.
+
+# --- Core numerics ---------------------------------------------------------
+numpy>=1.26,<3
+pandas>=2.1
+scikit-learn>=1.4
+
+# --- Deep learning / spatio-temporal GNN -----------------------------------
+torch>=2.2
+torch-geometric>=2.5
+
+# --- Road network + graph --------------------------------------------------
+osmnx>=1.9
+networkx>=3.2
+
+# --- Serving ---------------------------------------------------------------
+fastapi>=0.110
+uvicorn[standard]>=0.29
+
+# --- Native extension + inference runtime ----------------------------------
+pybind11>=2.12
+# onnx is needed to *write* the graph, onnxruntime to load and serve it.
+onnx>=1.16
+onnxruntime>=1.17
+
+# --- Test ------------------------------------------------------------------
+pytest>=8.0
+# Starlette's TestClient drives the ASGI app over httpx rather than a socket.
+httpx>=0.27
